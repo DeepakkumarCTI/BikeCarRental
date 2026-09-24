@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #17202a; background: #fffaf5; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: #fffaf5; }
+button, input, select, textarea { font: inherit; }
+::selection { background: #fed7aa; color: #7c2d12; }
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+  .btn-primary { @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-orange-500 px-5 py-3 font-bold text-white shadow-lg shadow-orange-200 transition hover:-translate-y-0.5 hover:bg-orange-600; }
+  .btn-secondary { @apply inline-flex items-center justify-center gap-2 rounded-2xl border border-orange-200 bg-white px-5 py-3 font-bold text-orange-700 transition hover:bg-orange-50; }
+  .card { @apply rounded-3xl border border-orange-100 bg-white shadow-soft; }
+  .input { @apply w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 outline-none transition focus:border-orange-400 focus:ring-4 focus:ring-orange-100; }
+  .label { @apply mb-2 block text-sm font-bold text-slate-700; }
+}
+
+@keyframes roadMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-48px); }
+}
+.road-lines { animation: roadMove .8s linear infinite; }

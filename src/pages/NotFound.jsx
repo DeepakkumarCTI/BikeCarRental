@@ -1,0 +1,2 @@
+import { Link } from "react-router-dom";
+export default function NotFound(){return <section className="container-x py-24 text-center"><div className="mx-auto max-w-xl"><div className="text-7xl font-black text-orange-200">404</div><h1 className="mt-4 text-3xl font-black">That road doesn't exist.</h1><p className="mt-2 text-slate-500">Let's get you back to the rental fleet.</p><Link to="/" className="btn-primary mt-7">Back home</Link></div></section>}
