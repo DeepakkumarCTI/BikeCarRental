@@ -14,97 +14,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-/* =========================================================
-   PROFESSIONAL VEHICLE LOGO
-========================================================= */
-function VehicleLogo() {
-  return (
-    <svg
-      viewBox="0 0 120 70"
-      className="h-7 w-10 sm:h-9 sm:w-12"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      {/* Vehicle body */}
-      <path
-        d="
-          M12 45
-          L18 30
-          C19 27 22 25 27 25
-          H41
-          L49 14
-          C51 11 54 9 58 9
-          H76
-          C80 9 83 11 85 14
-          L92 25
-          H98
-          C103 25 107 29 108 34
-          L110 45
-          V51
-          H102
-          C101 58 96 62 90 62
-          C84 62 79 58 78 51
-          H42
-          C41 58 36 62 30 62
-          C24 62 19 58 18 51
-          H10
-          V45
-          H12Z
-        "
-        fill="currentColor"
-      />
-
-      {/* Windows */}
-      <path
-        d="
-          M45 25
-          L52 15
-          C54 13 56 12 59 12
-          H75
-          C78 12 80 14 82 16
-          L87 25
-          H45Z
-        "
-        fill="white"
-        opacity="0.95"
-      />
-
-      {/* Window divider */}
-      <path d="M67 13V25" stroke="currentColor" strokeWidth="2" />
-
-      {/* Headlight */}
-      <path
-        d="M98 29C102 29 104 31 106 35H98V29Z"
-        fill="#FFF7ED"
-      />
-
-      {/* Grille */}
-      <path
-        d="M99 37H107L108 42H99V37Z"
-        fill="white"
-        opacity="0.7"
-      />
-
-      {/* Wheels */}
-      <circle cx="30" cy="49" r="10" fill="#0F172A" />
-      <circle cx="30" cy="49" r="5" fill="#94A3B8" />
-      <circle cx="30" cy="49" r="2" fill="#E2E8F0" />
-
-      <circle cx="90" cy="49" r="10" fill="#0F172A" />
-      <circle cx="90" cy="49" r="5" fill="#94A3B8" />
-      <circle cx="90" cy="49" r="2" fill="#E2E8F0" />
-
-      {/* Body highlight */}
-      <path
-        d="M16 43H98"
-        stroke="white"
-        strokeWidth="2"
-        opacity="0.3"
-      />
-    </svg>
-  );
-}
+import rentalLogo from "../assets/rental-logo.png";
 
 /* =========================================================
    LEGAL MODAL
@@ -161,27 +71,55 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="mt-3 border-t border-orange-100 bg-gradient-to-br from-orange-50 via-white to-amber-50 sm:mt-5">
-        <div className="container-x py-6 sm:py-10">
-
+      <footer className="mt-3 w-full border-t border-orange-100 bg-gradient-to-br from-orange-50 via-white to-amber-50 sm:mt-5">
+        {/* Full Width Footer Container */}
+        <div className="w-full px-2 py-6 sm:px-4 sm:py-10 lg:px-5">
           {/* =================================================
               FOOTER GRID
           ================================================= */}
           <div className="grid grid-cols-2 gap-x-5 gap-y-6 sm:gap-8 lg:grid-cols-[1.4fr_.7fr_.8fr_1fr] lg:gap-10">
-
             {/* =================================================
                 BRAND
                 Full width on mobile
             ================================================= */}
             <div className="col-span-2 min-w-0 lg:col-span-1">
               {/* Logo */}
-              <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-orange-500 via-orange-500 to-amber-400 text-white shadow-md shadow-orange-200 sm:h-12 sm:w-12 sm:rounded-2xl">
-                  <VehicleLogo />
-                </span>
+              <Link
+                to="/"
+                className="group flex min-w-0 items-center gap-1.5 sm:gap-2"
+              >
+                <div className="relative -ml-1 shrink-0 sm:-ml-2">
+                  <img
+                    src={rentalLogo}
+                    alt="Car & Bike Rentals"
+                    className="
+                      h-16 w-20
+                      object-contain
+                      transition-transform
+                      duration-300
+                      group-hover:scale-105
+                      sm:h-20 sm:w-28
+                      lg:h-24 lg:w-32
+                    "
+                  />
+                </div>
 
-                <div className="min-w-0">
-                  <div className="truncate text-sm font-black tracking-tight text-slate-900 sm:text-xl">
+                <div className="min-w-0 leading-tight">
+                  <div
+                    className="
+                      truncate
+                      bg-gradient-to-r
+                      from-orange-600
+                      via-orange-500
+                      to-amber-500
+                      bg-clip-text
+                      text-sm
+                      font-black
+                      tracking-tight
+                      text-transparent
+                      sm:text-xl
+                    "
+                  >
                     Car & Bike Rentals
                   </div>
 
@@ -189,7 +127,7 @@ export default function Footer() {
                     Ride. Explore. Repeat.
                   </div>
                 </div>
-              </div>
+              </Link>
 
               {/* Description */}
               <p className="mt-3 max-w-xl text-[11px] leading-5 text-slate-600 sm:mt-4 sm:text-sm sm:leading-6">
@@ -326,6 +264,7 @@ export default function Footer() {
               </h4>
 
               <div className="mt-2.5 grid gap-2.5 text-[11px] leading-5 text-slate-600 sm:mt-3 sm:gap-3 sm:text-sm sm:leading-normal">
+                {/* Location */}
                 <div className="flex items-start gap-2">
                   <MapPin
                     className="mt-0.5 shrink-0 text-orange-500"
@@ -339,6 +278,7 @@ export default function Footer() {
                   </span>
                 </div>
 
+                {/* Phone */}
                 <a
                   href="tel:+919876543210"
                   className="flex items-center gap-2 transition hover:text-orange-600"
@@ -351,6 +291,7 @@ export default function Footer() {
                   <span>+91 98765 43210</span>
                 </a>
 
+                {/* Email */}
                 <a
                   href="mailto:hello@orangedrive.in"
                   className="flex min-w-0 items-center gap-2 transition hover:text-orange-600"
@@ -361,7 +302,7 @@ export default function Footer() {
                   />
 
                   <span className="break-all">
-                    hello@orangedrive.in
+                    info@carbikerent.in
                   </span>
                 </a>
               </div>
