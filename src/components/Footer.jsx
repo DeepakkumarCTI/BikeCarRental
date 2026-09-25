@@ -316,15 +316,15 @@ export default function Footer() {
           {/* =================================================
               BOTTOM BAR
           ================================================= */}
-          <div className="mt-6 grid gap-1.5 border-t border-orange-100 pt-3 text-[9px] font-semibold leading-4 text-slate-500 sm:mt-8 sm:flex sm:items-center sm:justify-between sm:gap-2 sm:pt-4 sm:text-xs sm:leading-normal">
-            <span>
-              © 2026 Orange Drive Rentals. All rights reserved.
-            </span>
+          <div className="mt-6 grid gap-1.5 border-t border-orange-100 pt-3 text-center text-[9px] font-semibold leading-4 text-slate-500 sm:mt-8 sm:flex sm:flex-col sm:items-center sm:justify-center sm:gap-2 sm:pt-4 sm:text-xs sm:leading-normal">
+  <span>
+    © 2026 Orange Drive Rentals. All rights reserved.
+  </span>
 
-            <span>
-              Drive responsibly. Follow local traffic and rental rules.
-            </span>
-          </div>
+  <span>
+    Drive responsibly. Follow local traffic and rental rules.
+  </span>
+</div>
         </div>
       </footer>
 
