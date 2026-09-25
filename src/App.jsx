@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { initStorage } from "./utils";
@@ -33,8 +34,8 @@ export default function App() {
   const [boot, setBoot] = useState(true);
   const location = useLocation();
 
-  // Hide website Navbar/Footer on admin login page
-  const isAdminLogin = location.pathname === "/admin/login";
+  // Hide Navbar and Footer on all admin pages
+  const isAdminPage = location.pathname.startsWith("/admin");
 
   useEffect(() => {
     initStorage();
@@ -52,7 +53,7 @@ export default function App() {
     <>
       <ScrollToTop />
 
-      {!isAdminLogin && <Navbar />}
+      {!isAdminPage && <Navbar />}
 
       <main className="min-h-[70vh]">
         <Routes>
@@ -89,7 +90,7 @@ export default function App() {
         </Routes>
       </main>
 
-      {!isAdminLogin && <Footer />}
+      {!isAdminPage && <Footer />}
     </>
   );
 }

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import {
@@ -55,7 +56,6 @@ function normalizeImageUrl(url) {
 
   if (!value) return "";
 
-  // Already a normal absolute URL
   if (
     value.startsWith("http://") ||
     value.startsWith("https://") ||
@@ -64,7 +64,6 @@ function normalizeImageUrl(url) {
     return value;
   }
 
-  // If user pasted a URL without protocol
   if (value.startsWith("//")) {
     return `https:${value}`;
   }
@@ -91,6 +90,9 @@ export default function AdminDashboard() {
   const [tab, setTab] = useState("overview");
   const [editing, setEditing] = useState(null);
   const [search, setSearch] = useState("");
+
+  // Vehicle type filter
+  const [vehicleFilter, setVehicleFilter] = useState("all");
 
 
   useEffect(() => {
@@ -121,11 +123,38 @@ export default function AdminDashboard() {
   };
 
 
-  const filtered = vehicles.filter((v) =>
-    `${v.name} ${v.brand} ${v.category}`
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
+  /*
+    Vehicle filtering
+
+    Search + selected type
+  */
+  const filtered = vehicles.filter((v) => {
+    const matchesSearch =
+      `${v.name} ${v.brand} ${v.category}`
+        .toLowerCase()
+        .includes(search.toLowerCase());
+
+    const matchesType =
+      vehicleFilter === "all" ||
+      v.type?.toLowerCase() === vehicleFilter;
+
+    return matchesSearch && matchesType;
+  });
+
+
+  /*
+    Click from dashboard stat cards
+  */
+  const openVehicles = (type = "all") => {
+    setVehicleFilter(type);
+    setSearch("");
+    setTab("vehicles");
+  };
+
+
+  const openBookings = () => {
+    setTab("bookings");
+  };
 
 
   const updateBooking = (id, status) => {
@@ -168,17 +197,21 @@ export default function AdminDashboard() {
 
         <div className="flex shrink-0 gap-2">
 
+          {/* WEBSITE BUTTON */}
+
           <Link
             to="/"
-            className="btn-secondary flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5"
+            className="btn-secondary flex items-center gap-1.5 px-3 py-2 text-xs sm:px-4 sm:py-2.5 sm:text-sm"
           >
             <ExternalLink size={15} />
 
-            <span className="hidden sm:inline">
+            <span>
               Website
             </span>
           </Link>
 
+
+          {/* LOGOUT */}
 
           <button
             onClick={logout}
@@ -197,13 +230,47 @@ export default function AdminDashboard() {
           STATS
       ========================= */}
 
-      <div className="grid min-w-0 grid-cols-4 gap-2 sm:gap-4">
+      <div className="grid min-w-0 grid-cols-5 gap-2 sm:gap-4">
+
+        {/* TOTAL VEHICLES */}
 
         <Stat
           icon={CarFront}
           label="Total vehicles"
           value={vehicles.length}
+          onClick={() => openVehicles("all")}
         />
+
+
+        {/* CARS */}
+
+        <Stat
+          icon={CarFront}
+          label="Cars"
+          value={
+            vehicles.filter(
+              (v) => v.type?.toLowerCase() === "car"
+            ).length
+          }
+          onClick={() => openVehicles("car")}
+        />
+
+
+        {/* BIKES */}
+
+        <Stat
+          icon={Bike}
+          label="Bikes"
+          value={
+            vehicles.filter(
+              (v) => v.type?.toLowerCase() === "bike"
+            ).length
+          }
+          onClick={() => openVehicles("bike")}
+        />
+
+
+        {/* AVAILABLE */}
 
         <Stat
           icon={CheckCircle2}
@@ -215,20 +282,14 @@ export default function AdminDashboard() {
           }
         />
 
+
+        {/* ENQUIRIES */}
+
         <Stat
           icon={ClipboardList}
           label="Enquiries"
           value={bookings.length}
-        />
-
-        <Stat
-          icon={Bike}
-          label="Bikes"
-          value={
-            vehicles.filter(
-              (v) => v.type === "bike"
-            ).length
-          }
+          onClick={openBookings}
         />
 
       </div>
@@ -279,12 +340,15 @@ export default function AdminDashboard() {
       {tab === "vehicles" && (
         <VehicleManager
           vehicles={filtered}
+          allVehicles={vehicles}
           search={search}
           setSearch={setSearch}
           editing={editing}
           setEditing={setEditing}
           saveVehicles={saveVehicles}
           remove={remove}
+          vehicleFilter={vehicleFilter}
+          setVehicleFilter={setVehicleFilter}
         />
       )}
 
@@ -309,13 +373,25 @@ function Stat({
   icon: I,
   label,
   value,
+  onClick,
 }) {
+  const clickable = Boolean(onClick);
+
   return (
-    <div className="min-w-0 overflow-hidden rounded-2xl border border-orange-100 bg-white p-2.5 shadow-sm sm:rounded-3xl sm:p-5">
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={!clickable}
+      className={`group min-w-0 overflow-hidden rounded-2xl border border-orange-100 bg-white p-2.5 text-left shadow-sm transition-all sm:rounded-3xl sm:p-5 ${
+        clickable
+          ? "cursor-pointer hover:-translate-y-1 hover:border-orange-200 hover:shadow-lg hover:shadow-orange-100 active:scale-[0.98]"
+          : "cursor-default"
+      }`}
+    >
 
       <div className="flex min-w-0 items-center justify-between gap-1">
 
-        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-orange-50 text-orange-500 sm:h-10 sm:w-10 sm:rounded-xl">
+        <span className="grid h-7 w-7 shrink-0 place-items-center rounded-lg bg-orange-50 text-orange-500 transition-all group-hover:bg-orange-100 sm:h-10 sm:w-10 sm:rounded-xl">
 
           <I
             size={14}
@@ -339,7 +415,13 @@ function Stat({
         {label}
       </p>
 
-    </div>
+      {clickable && (
+        <p className="mt-1 hidden text-[9px] font-bold text-orange-400 sm:block">
+          Click to view →
+        </p>
+      )}
+
+    </button>
   );
 }
 
@@ -518,12 +600,15 @@ function Overview({
 
 function VehicleManager({
   vehicles,
+  allVehicles,
   search,
   setSearch,
   editing,
   setEditing,
   saveVehicles,
   remove,
+  vehicleFilter,
+  setVehicleFilter,
 }) {
   const [showAll, setShowAll] = useState(false);
 
@@ -577,11 +662,11 @@ function VehicleManager({
   return (
     <div className="mt-5 min-w-0 sm:mt-7">
 
-      {/* SEARCH + ADD */}
+      {/* SEARCH + FILTER + ADD */}
 
-      <div className="mb-4 flex min-w-0 items-center gap-2 sm:mb-5">
+      <div className="mb-4 flex min-w-0 flex-wrap items-center gap-2 sm:mb-5">
 
-        <div className="relative min-w-0 max-w-md flex-1">
+        <div className="relative min-w-0 flex-1 sm:max-w-md">
 
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 sm:left-4"
@@ -606,6 +691,39 @@ function VehicleManager({
         </div>
 
 
+        {/* VEHICLE FILTER */}
+
+        <div className="flex min-w-0 gap-1 rounded-xl bg-slate-100 p-1 sm:rounded-2xl">
+
+          {[
+            ["all", "All"],
+            ["car", "Cars"],
+            ["bike", "Bikes"],
+          ].map(([key, label]) => (
+
+            <button
+              key={key}
+              type="button"
+              onClick={() => {
+                setVehicleFilter(key);
+                setShowAll(false);
+              }}
+              className={`rounded-lg px-2.5 py-1.5 text-[9px] font-black transition sm:rounded-xl sm:px-4 sm:py-2 sm:text-xs ${
+                vehicleFilter === key
+                  ? "bg-white text-orange-600 shadow-sm"
+                  : "text-slate-500 hover:text-slate-700"
+              }`}
+            >
+              {label}
+            </button>
+
+          ))}
+
+        </div>
+
+
+        {/* ADD VEHICLE */}
+
         <button
           onClick={start}
           className="btn-primary shrink-0 px-3 py-2.5 text-xs sm:px-4 sm:text-sm"
@@ -622,6 +740,38 @@ function VehicleManager({
           </span>
 
         </button>
+
+      </div>
+
+
+      {/* ACTIVE FILTER TEXT */}
+
+      <div className="mb-3 flex items-center justify-between gap-2">
+
+        <p className="truncate text-[10px] font-bold text-slate-500 sm:text-sm">
+
+          {vehicleFilter === "all"
+            ? "All vehicles"
+            : vehicleFilter === "car"
+            ? "Cars only"
+            : "Bikes only"}
+
+          <span className="ml-1 text-orange-500">
+            ({vehicles.length})
+          </span>
+
+        </p>
+
+
+        {vehicleFilter !== "all" && (
+          <button
+            type="button"
+            onClick={() => setVehicleFilter("all")}
+            className="shrink-0 text-[10px] font-black text-orange-600 sm:text-xs"
+          >
+            Show all
+          </button>
+        )}
 
       </div>
 
@@ -735,6 +885,7 @@ function VehicleCard({
           />
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center gap-1 text-orange-300">
+
             <ImageIcon
               size={22}
               className="sm:hidden"
@@ -748,6 +899,7 @@ function VehicleCard({
             <span className="text-[7px] font-bold sm:text-[9px]">
               No image
             </span>
+
           </div>
         )}
 

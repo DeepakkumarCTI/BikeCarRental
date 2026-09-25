@@ -7,14 +7,7 @@ export const seedVehicles = [
     imageUrl: "https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=85",
     description: "A comfortable classic cruiser for city rides and weekend getaways."
   },
-  {
-    id: "bike-r15-02", type: "bike", name: "Yamaha R15 V4",
-    category: "Sports", brand: "Yamaha", pricePerDay: 1099,
-    pricePerHour: 179, fuel: "Petrol", transmission: "Manual", seats: 2,
-    location: "Coimbatore", available: true,
-    imageUrl: "https://images.unsplash.com/photo-1558980664-10ea47a7c6a0?auto=format&fit=crop&w=1200&q=85",
-    description: "Sporty handling and sharp styling for riders who enjoy every corner."
-  },
+
   {
     id: "bike-access-03", type: "bike", name: "Honda Activa 6G",
     category: "Scooter", brand: "Honda", pricePerDay: 599,

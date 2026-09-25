@@ -141,7 +141,7 @@ export default function Vehicles() {
 
 {/* Type */}
 <select
-  className="input h-10 min-w-0 w-full truncate appearance-none px-2 text-[10px] sm:h-auto sm:px-3 sm:text-sm"
+  className="input h-10 w-full min-w-0 px-2 text-[7px] font-semibold sm:h-auto sm:px-3 sm:text-sm"
   value={type}
   onChange={(e) => setType(e.target.value)}
 >
@@ -152,7 +152,7 @@ export default function Vehicles() {
 
 {/* Category */}
 <select
-  className="input h-10 min-w-0 w-full truncate appearance-none px-2 text-[10px] sm:h-auto sm:px-3 sm:text-sm"
+  className="input h-10 w-full min-w-0 px-2 text-[7px] font-semibold sm:h-auto sm:px-3 sm:text-sm"
   value={category}
   onChange={(e) => setCategory(e.target.value)}
 >
@@ -167,7 +167,7 @@ export default function Vehicles() {
 
 {/* Location */}
 <select
-  className="input h-10 min-w-0 w-full truncate appearance-none px-2 text-[10px] sm:h-auto sm:px-3 sm:text-sm"
+  className="input h-10 w-full min-w-0 px-2 text-[7px] font-semibold sm:h-auto sm:px-3 sm:text-sm"
   value={location}
   onChange={(e) => setLocation(e.target.value)}
 >
@@ -179,7 +179,6 @@ export default function Vehicles() {
     </option>
   ))}
 </select>
-
 
 
       {/* Availability */}

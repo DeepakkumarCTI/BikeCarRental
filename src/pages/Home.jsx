@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Bike,
+  Car,
   CarFront,
   CheckCircle2,
   Clock3,
@@ -16,6 +17,7 @@ import {
   ChevronRight,
   Phone,
   CalendarDays,
+  CalendarCheck2,
   Gauge,
   Zap,
   Search,
@@ -24,6 +26,8 @@ import {
   Navigation,
   MessageCircle,
   Clock,
+  Timer,
+  MoveRight,
   CircleCheck,
 } from "lucide-react";
 
@@ -1840,7 +1844,7 @@ export default function Home() {
                 We will check availability and confirm your booking.
               </p>
 
-              <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <div className="mt-6 grid grid-cols-3 gap-3 sm:grid-cols-3">
 
                 <div className="rounded-2xl border border-orange-100 bg-white p-4">
                   <CalendarDays
