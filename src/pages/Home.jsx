@@ -34,6 +34,19 @@ import {
 import { getStored } from "../utils";
 import VehicleCard from "../components/VehicleCard";
 
+import chooseVehicleImg from "../assets/search.png";
+import selectDateImg from "../assets/datetime.png";
+import sendRequestImg from "../assets/sendrequest.png";
+import pickUpRideImg from "../assets/pickup.png";
+
+import easyPickupImg from "../assets/features/easy-pickup.png";
+import flexibleRentalsImg from "../assets/features/flexible.jpg";
+import transparentPricingImg from "../assets/features/transprent.jpg";
+import vehicleAvailabilityImg from "../assets/features/vehicle.jpg";
+import humanSupportImg from "../assets/features/support.png";
+import easyLocationsImg from "../assets/features/easy.png";
+
+
 /* =========================================================
    ANIMATION VARIANTS
 ========================================================= */
@@ -69,7 +82,7 @@ const staggerContainer = {
 const rentalSteps = [
   {
     number: "01",
-    icon: Search,
+    image: chooseVehicleImg,
     title: "Choose Your Vehicle",
     description:
       "Browse our bikes and cars, compare options and select the ride that fits your trip.",
@@ -77,7 +90,7 @@ const rentalSteps = [
   },
   {
     number: "02",
-    icon: CalendarDays,
+    image: selectDateImg,
     title: "Select Date & Time",
     description:
       "Choose your pickup date, return date and preferred pickup time.",
@@ -85,7 +98,7 @@ const rentalSteps = [
   },
   {
     number: "03",
-    icon: FileText,
+    image: sendRequestImg,
     title: "Send Booking Request",
     description:
       "Enter your details and submit the booking enquiry. Our team will confirm availability.",
@@ -93,7 +106,7 @@ const rentalSteps = [
   },
   {
     number: "04",
-    icon: KeyRound,
+    image: pickUpRideImg,
     title: "Pick Up & Ride",
     description:
       "Collect your vehicle from the agreed location and enjoy your journey.",
@@ -107,37 +120,37 @@ const rentalSteps = [
 
 const features = [
   {
-    icon: MapPin,
+    image: easyPickupImg,
     title: "Easy Pickup",
     text: "Convenient pickup and drop options around Coimbatore and Pollachi.",
     gradient: "from-orange-500 to-amber-400",
   },
   {
-    icon: Clock3,
+    image: flexibleRentalsImg,
     title: "Flexible Rentals",
     text: "Choose hourly or daily rental options based on your travel plan.",
     gradient: "from-amber-500 to-yellow-400",
   },
   {
-    icon: ShieldCheck,
+    image: transparentPricingImg,
     title: "Transparent Pricing",
     text: "Clear rental pricing with no unnecessary surprises.",
     gradient: "from-pink-500 to-orange-500",
   },
   {
-    icon: CircleCheck,
+    image: vehicleAvailabilityImg,
     title: "Vehicle Availability",
     text: "Check available bikes and cars before sending your enquiry.",
     gradient: "from-emerald-500 to-teal-400",
   },
   {
-    icon: Headphones,
+    image: humanSupportImg,
     title: "Human Support",
     text: "Get direct assistance from our team whenever you need help.",
     gradient: "from-blue-500 to-cyan-400",
   },
   {
-    icon: Navigation,
+    image: easyLocationsImg,
     title: "Easy Locations",
     text: "Share your pickup and drop locations while making your request.",
     gradient: "from-violet-500 to-purple-400",
@@ -318,6 +331,7 @@ function MovingCar() {
       className="absolute bottom-[68px] right-0 z-[7]"
     >
       <div className="relative">
+        {/* Road shadow */}
         <motion.div
           animate={{
             scaleX: [1, 0.9, 1],
@@ -330,6 +344,7 @@ function MovingCar() {
           className="absolute -bottom-2 left-1/2 h-2 w-28 -translate-x-1/2 rounded-full bg-black/70 blur-md"
         />
 
+        {/* Headlight glow */}
         <motion.div
           animate={{
             opacity: [0.4, 1, 0.4],
@@ -344,6 +359,7 @@ function MovingCar() {
 
         <SpeedLines reverse />
 
+        {/* Side-view car */}
         <motion.div
           animate={{
             y: [0, -1.5, 0],
@@ -353,12 +369,145 @@ function MovingCar() {
             repeat: Infinity,
             ease: "easeInOut",
           }}
+          className="relative"
         >
-          <CarFront
-            size={82}
-            strokeWidth={1.3}
-            className="text-pink-300 drop-shadow-[0_0_18px_rgba(244,114,182,0.6)] sm:h-28 sm:w-28"
-          />
+          <svg
+            viewBox="0 0 180 90"
+            className="h-[82px] w-[150px] drop-shadow-[0_0_18px_rgba(244,114,182,0.6)] sm:h-28 sm:w-[190px]"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Main car body */}
+            <path
+              d="
+                M18 58
+                C20 48 30 43 43 41
+                L57 22
+                C60 18 65 16 72 16
+                H111
+                C118 16 124 19 129 24
+                L144 41
+                C157 43 166 48 168 58
+                V65
+                H157
+                C155 54 146 49 136 49
+                C125 49 117 55 115 65
+                H65
+                C63 55 55 49 44 49
+                C33 49 25 55 23 65
+                H16
+                V58
+                Z
+              "
+              fill="url(#carBody)"
+              stroke="#fbcfe8"
+              strokeWidth="2"
+            />
+
+            {/* Roof / windows */}
+            <path
+              d="
+                M59 40
+                L70 24
+                C72 21 76 20 81 20
+                H108
+                C113 20 117 22 120 25
+                L133 40
+                Z
+              "
+              fill="url(#carGlass)"
+              stroke="#f9a8d4"
+              strokeWidth="1.5"
+            />
+
+            {/* Window divider */}
+            <path
+              d="M96 21 V40"
+              stroke="#f9a8d4"
+              strokeWidth="1.5"
+            />
+
+            {/* Front headlight */}
+            <path
+              d="M160 49 Q166 51 168 56 L160 56 Z"
+              fill="#fef08a"
+            />
+
+            {/* Rear light */}
+            <path
+              d="M20 49 Q23 48 27 50 L25 56 H19 Z"
+              fill="#fb7185"
+            />
+
+            {/* Front wheel */}
+            <circle
+              cx="137"
+              cy="65"
+              r="11"
+              fill="#18181b"
+              stroke="#f9a8d4"
+              strokeWidth="2"
+            />
+            <circle
+              cx="137"
+              cy="65"
+              r="4"
+              fill="#a1a1aa"
+            />
+
+            {/* Rear wheel */}
+            <circle
+              cx="43"
+              cy="65"
+              r="11"
+              fill="#18181b"
+              stroke="#f9a8d4"
+              strokeWidth="2"
+            />
+            <circle
+              cx="43"
+              cy="65"
+              r="4"
+              fill="#a1a1aa"
+            />
+
+            {/* Lower body highlight */}
+            <path
+              d="M24 57 H158"
+              stroke="#fbcfe8"
+              strokeWidth="1"
+              opacity="0.7"
+            />
+
+            {/* Gradient definitions */}
+            <defs>
+              <linearGradient
+                id="carBody"
+                x1="20"
+                y1="20"
+                x2="160"
+                y2="70"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0" stopColor="#f472b6" />
+                <stop offset="0.5" stopColor="#ec4899" />
+                <stop offset="1" stopColor="#be185d" />
+              </linearGradient>
+
+              <linearGradient
+                id="carGlass"
+                x1="65"
+                y1="20"
+                x2="125"
+                y2="40"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0" stopColor="#334155" />
+                <stop offset="0.5" stopColor="#64748b" />
+                <stop offset="1" stopColor="#1e293b" />
+              </linearGradient>
+            </defs>
+          </svg>
         </motion.div>
       </div>
     </motion.div>
@@ -916,167 +1065,7 @@ export default function Home() {
           QUICK BOOKING SEARCH
       ===================================================== */}
 
-      <section className="relative z-30 px-4 pt-6 sm:px-6 sm:pt-12 lg:-mt-14">
-
-  <div className="mx-auto max-w-6xl">
-
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      variants={fadeUp}
-      className="rounded-3xl border border-slate-200 bg-white p-3 shadow-2xl sm:p-6"
-    >
-
-      {/* Header */}
-
-      <div className="mb-4 flex flex-col justify-between gap-2 sm:mb-5 sm:flex-row sm:items-center">
-
-        <div>
-          <p className="text-[9px] font-black uppercase tracking-[0.18em] text-orange-500 sm:text-xs">
-            Plan your journey
-          </p>
-
-          <h2 className="mt-1 text-lg font-black text-slate-950 sm:text-2xl">
-            Find your perfect ride
-          </h2>
-        </div>
-
-        <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-600 sm:text-xs">
-          <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-          Check availability
-        </span>
-
-      </div>
-
-      {/* Finder Grid */}
-
-      <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-5">
-
-        {/* Vehicle */}
-
-        <Link
-          to="/vehicles"
-          className="group rounded-xl border border-slate-200 bg-slate-50 p-2.5 transition hover:border-orange-300 hover:bg-orange-50 sm:rounded-2xl sm:p-3"
-        >
-          <div className="flex items-center gap-2 sm:gap-3">
-
-            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-orange-100 sm:h-10 sm:w-10 sm:rounded-xl">
-              <Bike
-                size={17}
-                className="text-orange-500 sm:h-[19px] sm:w-[19px]"
-              />
-            </div>
-
-            <div className="min-w-0">
-              <p className="text-[8px] font-bold uppercase tracking-wider text-slate-400 sm:text-[9px]">
-                Vehicle
-              </p>
-
-              <p className="truncate text-xs font-black text-slate-800 sm:text-sm">
-                Bike / Car
-              </p>
-            </div>
-
-          </div>
-        </Link>
-
-        {/* Pickup */}
-
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-2.5 sm:rounded-2xl sm:p-3">
-          <div className="flex items-center gap-2 sm:gap-3">
-
-            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-orange-100 sm:h-10 sm:w-10 sm:rounded-xl">
-              <MapPin
-                size={17}
-                className="text-orange-500 sm:h-[19px] sm:w-[19px]"
-              />
-            </div>
-
-            <div className="min-w-0">
-              <p className="text-[8px] font-bold uppercase tracking-wider text-slate-400 sm:text-[9px]">
-                Pickup
-              </p>
-
-              <p className="truncate text-xs font-black text-slate-800 sm:text-sm">
-                Your location
-              </p>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Date */}
-
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-2.5 sm:rounded-2xl sm:p-3">
-          <div className="flex items-center gap-2 sm:gap-3">
-
-            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-amber-100 sm:h-10 sm:w-10 sm:rounded-xl">
-              <CalendarDays
-                size={17}
-                className="text-amber-600 sm:h-[19px] sm:w-[19px]"
-              />
-            </div>
-
-            <div className="min-w-0">
-              <p className="text-[8px] font-bold uppercase tracking-wider text-slate-400 sm:text-[9px]">
-                Date
-              </p>
-
-              <p className="truncate text-xs font-black text-slate-800 sm:text-sm">
-                Choose dates
-              </p>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Time */}
-
-        <div className="rounded-xl border border-slate-200 bg-slate-50 p-2.5 sm:rounded-2xl sm:p-3">
-          <div className="flex items-center gap-2 sm:gap-3">
-
-            <div className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-pink-100 sm:h-10 sm:w-10 sm:rounded-xl">
-              <Clock
-                size={17}
-                className="text-pink-500 sm:h-[19px] sm:w-[19px]"
-              />
-            </div>
-
-            <div className="min-w-0">
-              <p className="text-[8px] font-bold uppercase tracking-wider text-slate-400 sm:text-[9px]">
-                Time
-              </p>
-
-              <p className="truncate text-xs font-black text-slate-800 sm:text-sm">
-                Pickup time
-              </p>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Browse Button */}
-
-        <Link
-          to="/vehicles"
-          className="group col-span-2 flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-3 py-3 text-xs font-black text-white transition hover:bg-orange-500 sm:col-span-2 sm:rounded-2xl sm:px-4 sm:py-3 sm:text-sm lg:col-span-1"
-        >
-          Browse Vehicles
-
-          <ArrowRight
-            size={15}
-            className="transition-transform group-hover:translate-x-1 sm:h-4 sm:w-4"
-          />
-        </Link>
-
-      </div>
-
-    </motion.div>
-
-  </div>
-
-</section>
+      
 
       {/* =====================================================
           HOW TO RENT
@@ -1104,7 +1093,6 @@ export default function Home() {
       variants={fadeUp}
       className="mx-auto max-w-2xl text-center"
     >
-
       <div className="mx-auto mb-3 inline-flex items-center gap-2 rounded-full bg-orange-100 px-3 py-1.5 text-[8px] font-black uppercase tracking-widest text-orange-600 sm:px-4 sm:py-2 sm:text-xs">
         <Sparkles size={12} />
         Simple Process
@@ -1121,7 +1109,6 @@ export default function Home() {
         From choosing your vehicle to picking it up,
         everything is simple and straightforward.
       </p>
-
     </motion.div>
 
     {/* ================= STEPS ================= */}
@@ -1153,9 +1140,6 @@ export default function Home() {
       <div className="grid grid-cols-4 gap-2 sm:gap-4 lg:gap-5">
 
         {rentalSteps.map((step, index) => {
-
-          const Icon = step.icon;
-
           return (
             <motion.div
               key={step.number}
@@ -1177,34 +1161,74 @@ export default function Home() {
               className="relative min-w-0 text-center"
             >
 
-              {/* Circle */}
+             
 
-              <motion.div
-                whileHover={{
-                  scale: 1.05,
-                  rotate: -2,
-                }}
-                className="relative z-10 mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white shadow-md sm:h-20 sm:w-20 lg:h-32 lg:w-32 lg:shadow-lg"
-              >
+              {/* ================= IMAGE ================= */}
 
-                <div
-                  className={`grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br ${step.color} text-white shadow-md sm:h-12 sm:w-12 sm:rounded-2xl lg:h-20 lg:w-20`}
-                >
-                  <Icon
-                    size={16}
-                    className="sm:h-5 sm:w-5 lg:h-8 lg:w-8"
-                  />
-                </div>
+<motion.div
+  whileHover={{
+    scale: 1.08,
+    rotate: -2,
+  }}
+  className="relative z-10 mx-auto flex h-14 w-14 items-center justify-center sm:h-20 sm:w-20 lg:h-32 lg:w-32"
+>
+  {/* Realistic Image - No Background */}
+  <motion.img
+    src={step.image}
+    alt={step.title}
+    animate={{
+      y: [0, -3, 0],
+      scale: [1, 1.02, 1],
+    }}
+    transition={{
+      duration: 2.5,
+      repeat: Infinity,
+      ease: "easeInOut",
+    }}
+    className="
+      relative z-10
+      h-full w-full
+      object-contain
+      drop-shadow-[0_8px_12px_rgba(15,23,42,0.15)]
+      transition-transform duration-500
+      sm:p-1
+      lg:p-2
+    "
+  />
 
-                {/* Number */}
+  {/* Moving Light - directly over image */}
+  <motion.div
+    animate={{
+      x: ["-120%", "120%"],
+    }}
+    transition={{
+      duration: 2.8,
+      repeat: Infinity,
+      repeatDelay: 1.5,
+      ease: "easeInOut",
+    }}
+    className="
+      pointer-events-none
+      absolute
+      inset-y-0
+      -left-1/2
+      z-20
+      w-1/3
+      skew-x-[-20deg]
+      bg-gradient-to-r
+      from-transparent
+      via-white/40
+      to-transparent
+    "
+  />
 
-                <span className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full border-2 border-white bg-slate-950 text-[7px] font-black text-white sm:h-6 sm:w-6 sm:text-[8px] lg:h-7 lg:w-7">
-                  {index + 1}
-                </span>
+  {/* Number */}
+  <span className="absolute -right-1 -top-1 z-30 grid h-5 w-5 place-items-center rounded-full border-2 border-white bg-slate-950 text-[7px] font-black text-white shadow-md sm:h-6 sm:w-6 sm:text-[8px] lg:h-7 lg:w-7">
+    {index + 1}
+  </span>
+</motion.div>
 
-              </motion.div>
-
-              {/* Text */}
+              {/* ================= TEXT ================= */}
 
               <div className="mt-3 sm:mt-4">
 
@@ -1227,7 +1251,6 @@ export default function Home() {
         })}
 
       </div>
-
     </div>
 
     {/* ================= LOOPING BOTTOM ROUTE LINE ================= */}
@@ -1238,7 +1261,7 @@ export default function Home() {
 
       <div className="absolute left-0 right-0 top-1/2 h-[2px] -translate-y-1/2 bg-gradient-to-r from-transparent via-orange-200 to-transparent" />
 
-      {/* Animated Dashed Route */}
+      {/* Animated Route */}
 
       <motion.div
         animate={{
@@ -1309,6 +1332,8 @@ export default function Home() {
 
       <section className="container-x py-12 sm:py-16 lg:py-14">
 
+  {/* ================= HEADER ================= */}
+
   <motion.div
     initial="hidden"
     whileInView="visible"
@@ -1332,6 +1357,8 @@ export default function Home() {
     </p>
   </motion.div>
 
+  {/* ================= FEATURES ================= */}
+
   <motion.div
     initial="hidden"
     whileInView="visible"
@@ -1341,47 +1368,42 @@ export default function Home() {
     variants={staggerContainer}
     className="grid grid-cols-2 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
   >
-
     {features.map((item, index) => {
-
-      const Icon = item.icon;
-
-      // Different colors for each feature card
       const cardColors = [
         {
           border: "border-orange-100",
           bg: "from-orange-50 via-white to-amber-50",
-          icon: "from-orange-500 to-amber-500",
+          line: "from-orange-500 to-amber-500",
           glow: "bg-orange-400",
         },
         {
           border: "border-blue-100",
           bg: "from-blue-50 via-white to-cyan-50",
-          icon: "from-blue-500 to-cyan-500",
+          line: "from-blue-500 to-cyan-500",
           glow: "bg-blue-400",
         },
         {
           border: "border-emerald-100",
           bg: "from-emerald-50 via-white to-green-50",
-          icon: "from-emerald-500 to-green-500",
+          line: "from-emerald-500 to-green-500",
           glow: "bg-emerald-400",
         },
         {
           border: "border-violet-100",
           bg: "from-violet-50 via-white to-purple-50",
-          icon: "from-violet-500 to-purple-500",
+          line: "from-violet-500 to-purple-500",
           glow: "bg-violet-400",
         },
         {
           border: "border-pink-100",
           bg: "from-pink-50 via-white to-rose-50",
-          icon: "from-pink-500 to-rose-500",
+          line: "from-pink-500 to-rose-500",
           glow: "bg-pink-400",
         },
         {
           border: "border-cyan-100",
           bg: "from-cyan-50 via-white to-sky-50",
-          icon: "from-cyan-500 to-sky-500",
+          line: "from-cyan-500 to-sky-500",
           glow: "bg-cyan-400",
         },
       ];
@@ -1407,10 +1429,20 @@ export default function Home() {
               delay: index * 0.2,
             },
           }}
-          className={`group relative overflow-hidden rounded-2xl border ${color.border} bg-gradient-to-br ${color.bg} p-4 shadow-sm transition-shadow duration-300 hover:shadow-2xl sm:rounded-3xl sm:p-6`}
+          className={`
+            group relative overflow-hidden
+            rounded-2xl border
+            ${color.border}
+            bg-gradient-to-br ${color.bg}
+            p-4 shadow-sm
+            transition-shadow duration-300
+            hover:shadow-2xl
+            sm:rounded-3xl sm:p-6
+          `}
         >
 
-          {/* Animated glow */}
+          {/* ================= ANIMATED LIGHT ================= */}
+
           <motion.div
             animate={{
               x: ["-120%", "120%"],
@@ -1421,10 +1453,20 @@ export default function Home() {
               ease: "linear",
               delay: index * 0.5,
             }}
-            className="pointer-events-none absolute inset-y-0 left-0 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/70 to-transparent"
+            className="
+              pointer-events-none
+              absolute inset-y-0 left-0
+              z-0 w-1/2
+              -skew-x-12
+              bg-gradient-to-r
+              from-transparent
+              via-white/70
+              to-transparent
+            "
           />
 
-          {/* Decorative floating circle */}
+          {/* ================= DECORATIVE GLOW ================= */}
+
           <motion.div
             animate={{
               scale: [1, 1.15, 1],
@@ -1436,14 +1478,26 @@ export default function Home() {
               ease: "easeInOut",
               delay: index * 0.3,
             }}
-            className={`pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full ${color.glow} blur-2xl`}
+            className={`
+              pointer-events-none
+              absolute -right-8 -top-8
+              h-24 w-24
+              rounded-full
+              ${color.glow}
+              blur-2xl
+            `}
           />
 
-          {/* Icon */}
+          {/* ================= IMAGE ================= */}
+
           <motion.div
             animate={{
-              y: [0, -3, 0],
-              rotate: [0, 2, -2, 0],
+              y: [0, -4, 0],
+              scale: [1, 1.03, 1],
+            }}
+            whileHover={{
+              scale: 1.08,
+              rotate: -2,
             }}
             transition={{
               duration: 3,
@@ -1451,15 +1505,52 @@ export default function Home() {
               ease: "easeInOut",
               delay: index * 0.15,
             }}
-            className={`relative z-10 grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br ${color.icon} text-white shadow-lg sm:h-14 sm:w-14 sm:rounded-2xl`}
+            className="
+              relative z-10
+              flex h-16 w-full
+              items-center justify-start
+              sm:h-20
+            "
           >
-            <Icon
-              size={18}
-              className="sm:h-6 sm:w-6"
+            <motion.img
+              src={item.image}
+              alt={item.title}
+              className="
+                h-14 w-14
+                object-contain
+                drop-shadow-[0_8px_14px_rgba(15,23,42,0.16)]
+                sm:h-16 sm:w-16
+                lg:h-20 lg:w-20
+              "
+            />
+
+            {/* Image Shine */}
+
+            <motion.div
+              animate={{
+                x: ["-150%", "180%"],
+              }}
+              transition={{
+                duration: 2.8,
+                repeat: Infinity,
+                repeatDelay: 1.8,
+                ease: "easeInOut",
+              }}
+              className="
+                pointer-events-none
+                absolute left-0 top-0
+                h-full w-1/4
+                -skew-x-12
+                bg-gradient-to-r
+                from-transparent
+                via-white/50
+                to-transparent
+              "
             />
           </motion.div>
 
-          {/* Content */}
+          {/* ================= CONTENT ================= */}
+
           <div className="relative z-10">
 
             <h3 className="mt-3 text-xs font-black leading-4 text-slate-900 sm:mt-5 sm:text-lg">
@@ -1472,7 +1563,8 @@ export default function Home() {
 
           </div>
 
-          {/* Bottom animated line */}
+          {/* ================= BOTTOM ANIMATED LINE ================= */}
+
           <motion.div
             animate={{
               width: ["20%", "80%", "20%"],
@@ -1484,13 +1576,19 @@ export default function Home() {
               ease: "easeInOut",
               delay: index * 0.2,
             }}
-            className={`absolute bottom-0 left-1/2 h-1 -translate-x-1/2 rounded-full bg-gradient-to-r ${color.icon}`}
+            className={`
+              absolute bottom-0 left-1/2
+              h-1
+              -translate-x-1/2
+              rounded-full
+              bg-gradient-to-r
+              ${color.line}
+            `}
           />
 
         </motion.div>
       );
     })}
-
   </motion.div>
 </section>
 
