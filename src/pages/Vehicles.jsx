@@ -1,3 +1,4 @@
+
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import {
@@ -5,12 +6,6 @@ import {
   SlidersHorizontal,
   X,
 } from "lucide-react";
-import {
-  ChevronDown,
-  HelpCircle,
-} from "lucide-react";
-
-import { ArrowRight } from "lucide-react";
 
 import VehicleCard from "../components/VehicleCard";
 import { getStored } from "../utils";
@@ -27,22 +22,17 @@ export default function Vehicles() {
   const [location, setLocation] = useState("all");
   const [onlyAvailable, setOnlyAvailable] = useState(false);
 
-
   const vehicles = getStored("od_vehicles", []);
 
   const categories = [
     ...new Set(
-      vehicles
-        .map((v) => v.category)
-        .filter(Boolean)
+      vehicles.map((v) => v.category).filter(Boolean)
     ),
   ];
 
   const locations = [
     ...new Set(
-      vehicles
-        .map((v) => v.location)
-        .filter(Boolean)
+      vehicles.map((v) => v.location).filter(Boolean)
     ),
   ];
 
@@ -52,21 +42,21 @@ export default function Vehicles() {
         type === "all" || v.type === type;
 
       const matchesCategory =
-        category === "all" ||
-        v.category === category;
+        category === "all" || v.category === category;
 
       const matchesLocation =
-        location === "all" ||
-        v.location === location;
+        location === "all" || v.location === location;
 
       const matchesAvailability =
         !onlyAvailable || v.available;
 
       const searchText =
-        `${v.name || ""} ${v.brand || ""} ${v.category || ""}`.toLowerCase();
+        `${v.name || ""} ${v.brand || ""} ${v.category || ""}`
+          .toLowerCase();
 
-      const matchesSearch =
-        searchText.includes(query.toLowerCase());
+      const matchesSearch = searchText.includes(
+        query.toLowerCase()
+      );
 
       return (
         matchesType &&
@@ -94,194 +84,188 @@ export default function Vehicles() {
   };
 
   return (
-    <div>
-      <section className="w-full min-w-0 px-2 py-6 sm:px-4 sm:py-12 lg:px-5 lg:py-16">
+    <div className="w-full min-w-0 overflow-x-clip">
+      <section className="w-full min-w-0 px-3 py-5 sm:px-5 sm:py-10 lg:px-6 lg:py-14">
 
-  {/* =====================================================
-      HEADER + FILTER AREA
-  ====================================================== */}
-  <div className="w-full min-w-0 overflow-hidden rounded-none bg-gradient-to-br from-orange-100 via-white to-amber-50 px-3 py-4 shadow-sm sm:rounded-[2rem] sm:px-7 sm:py-7 md:px-9 md:py-9 lg:px-10 lg:py-10">
+        {/* ================= HEADER ================= */}
 
-    {/* Heading */}
-    <div className="max-w-3xl">
-      <p className="text-[9px] font-black uppercase tracking-[0.18em] text-orange-500 sm:text-xs sm:tracking-widest">
-        Our fleet
-      </p>
+        <div className="w-full min-w-0 overflow-hidden rounded-2xl bg-gradient-to-br from-orange-100 via-white to-amber-50 px-4 py-5 shadow-sm sm:rounded-[2rem] sm:px-7 sm:py-7 lg:px-10 lg:py-10">
 
-      <h1 className="mt-1.5 text-2xl font-black leading-tight text-slate-950 sm:mt-2 sm:text-4xl lg:text-5xl">
-        Find your ride
-      </h1>
+          <div className="max-w-3xl">
+            <p className="text-[10px] font-black uppercase tracking-[0.18em] text-orange-500 sm:text-xs sm:tracking-widest">
+              Our fleet
+            </p>
 
-      <p className="mt-2 max-w-2xl text-[11px] leading-relaxed text-slate-600 sm:mt-3 sm:text-sm lg:text-base">
-        Compare bikes and cars by category,
-        location, features and rental price.
-      </p>
-    </div>
+            <h1 className="mt-2 text-2xl font-black leading-tight text-slate-950 sm:text-4xl lg:text-5xl">
+              Find your ride
+            </h1>
 
-    {/* =====================================================
-        FILTERS
-    ====================================================== */}
-    <div className="mt-5 grid min-w-0 grid-cols-2 gap-2.5 sm:mt-7 sm:gap-3 lg:grid-cols-[1.5fr_repeat(3,1fr)_auto]">
+            <p className="mt-2 max-w-2xl text-xs leading-relaxed text-slate-600 sm:mt-3 sm:text-sm lg:text-base">
+              Compare bikes and cars by category,
+              location, features and rental price.
+            </p>
+          </div>
 
-      {/* Search */}
-      <div className="relative col-span-2 min-w-0 lg:col-span-1">
-        <Search
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 sm:left-4"
-          size={16}
-        />
+          {/* ================= FILTERS ================= */}
 
-        <input
-          className="input h-10 w-full min-w-0 pl-9 text-xs sm:h-auto sm:pl-11 sm:text-sm"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search vehicle..."
-        />
-      </div>
+          <div className="mt-5 grid min-w-0 grid-cols-2 gap-2.5 sm:mt-7 sm:gap-3 lg:grid-cols-[1.5fr_repeat(3,1fr)_auto]">
 
+            {/* Search */}
 
-{/* Type */}
-<select
-  className="input h-10 w-full min-w-0 px-2 text-[7px] font-semibold sm:h-auto sm:px-3 sm:text-sm"
-  value={type}
-  onChange={(e) => setType(e.target.value)}
->
-  <option value="all">All types</option>
-  <option value="bike">Bikes</option>
-  <option value="car">Cars</option>
-</select>
+            <div className="relative col-span-2 min-w-0 lg:col-span-1">
+              <Search
+                size={17}
+                className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 sm:left-4"
+              />
 
-{/* Category */}
-<select
-  className="input h-10 w-full min-w-0 px-2 text-[7px] font-semibold sm:h-auto sm:px-3 sm:text-sm"
-  value={category}
-  onChange={(e) => setCategory(e.target.value)}
->
-  <option value="all">All categories</option>
+              <input
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="Search vehicle..."
+                className="input h-11 w-full min-w-0 pl-9 pr-3 text-xs sm:h-auto sm:pl-11 sm:text-sm"
+              />
+            </div>
 
-  {categories.map((c) => (
-    <option key={c} value={c}>
-      {c}
-    </option>
-  ))}
-</select>
+            {/* Type */}
 
-{/* Location */}
-<select
-  className="input h-10 w-full min-w-0 px-2 text-[7px] font-semibold sm:h-auto sm:px-3 sm:text-sm"
-  value={location}
-  onChange={(e) => setLocation(e.target.value)}
->
-  <option value="all">All locations</option>
+            <select
+              value={type}
+              onChange={(e) => setType(e.target.value)}
+              className="input h-11 w-full min-w-0 px-2 text-[11px] font-semibold sm:h-auto sm:px-3 sm:text-sm"
+            >
+              <option value="all">All types</option>
+              <option value="bike">Bikes</option>
+              <option value="car">Cars</option>
+            </select>
 
-  {locations.map((c) => (
-    <option key={c} value={c}>
-      {c}
-    </option>
-  ))}
-</select>
+            {/* Category */}
 
+            <select
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="input h-11 w-full min-w-0 px-2 text-[11px] font-semibold sm:h-auto sm:px-3 sm:text-sm"
+            >
+              <option value="all">All categories</option>
 
-      {/* Availability */}
-      <button
-        type="button"
-        onClick={() => setOnlyAvailable((value) => !value)}
-        aria-label="Toggle available vehicles"
-        className={`flex h-10 min-w-0 items-center justify-center rounded-xl px-3 transition-all sm:h-auto sm:rounded-2xl ${
-          onlyAvailable
-            ? "bg-emerald-500 text-white shadow-md shadow-emerald-200"
-            : "border border-white bg-white text-slate-600 hover:bg-orange-50"
-        }`}
-      >
-        <SlidersHorizontal size={17} />
-      </button>
-    </div>
+              {categories.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
 
-    {/* =====================================================
-        RESULT COUNT / ACTIVE FILTERS
-    ====================================================== */}
-    <div className="mt-4 flex min-w-0 flex-wrap items-center gap-2 sm:mt-5">
+            {/* Location */}
 
-      <span className="text-[10px] font-bold text-slate-500 sm:text-sm">
-        {filtered.length} vehicles found
-      </span>
+            <select
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="input h-11 w-full min-w-0 px-2 text-[11px] font-semibold sm:h-auto sm:px-3 sm:text-sm"
+            >
+              <option value="all">All locations</option>
 
-      {onlyAvailable && (
-        <button
-          type="button"
-          onClick={() => setOnlyAvailable(false)}
-          className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold text-emerald-700 sm:px-3 sm:text-xs"
-        >
-          Available only
-          <X size={12} />
-        </button>
-      )}
+              {locations.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
 
-      <button
-        type="button"
-        onClick={reset}
-        className="ml-auto text-[10px] font-black text-orange-600 transition-colors hover:text-orange-700 sm:text-sm"
-      >
-        Reset filters
-      </button>
-    </div>
-  </div>
+            {/* Availability */}
 
-  {/* =====================================================
-      VEHICLE GRID
-  ====================================================== */}
-  {filtered.length > 0 ? (
-    <div className="mt-6 grid w-full min-w-0 grid-cols-2 gap-2 px-0 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
+            <button
+              type="button"
+              onClick={() =>
+                setOnlyAvailable((value) => !value)
+              }
+              aria-label="Toggle available vehicles"
+              aria-pressed={onlyAvailable}
+              className={`flex h-11 min-w-0 items-center justify-center rounded-xl transition-all sm:h-auto sm:rounded-2xl ${
+                onlyAvailable
+                  ? "bg-emerald-500 text-white shadow-md shadow-emerald-200"
+                  : "border border-white bg-white text-slate-600 hover:bg-orange-50"
+              }`}
+            >
+              <SlidersHorizontal size={17} />
+            </button>
+          </div>
 
-      {filtered.map((v) => (
-        <div
-          key={v.id}
-          className="min-w-0 w-full overflow-hidden"
-        >
-          <VehicleCard v={v} />
+          {/* ================= RESULT COUNT ================= */}
+
+          <div className="mt-4 flex min-w-0 flex-wrap items-center gap-2 sm:mt-5">
+
+            <span className="text-[11px] font-bold text-slate-500 sm:text-sm">
+              {filtered.length} vehicles found
+            </span>
+
+            {onlyAvailable && (
+              <button
+                type="button"
+                onClick={() => setOnlyAvailable(false)}
+                className="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2.5 py-1 text-[10px] font-bold text-emerald-700 sm:px-3 sm:text-xs"
+              >
+                Available only
+                <X size={12} />
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={reset}
+              className="ml-auto text-[11px] font-black text-orange-600 transition-colors hover:text-orange-700 sm:text-sm"
+            >
+              Reset filters
+            </button>
+          </div>
         </div>
-      ))}
 
+        {/* ================= VEHICLE GRID ================= */}
+
+        {filtered.length > 0 ? (
+          <div className="mt-5 grid w-full min-w-0 auto-rows-fr grid-cols-2 items-stretch gap-2.5 sm:mt-8 sm:gap-5 lg:grid-cols-4">
+
+            {filtered.map((v) => (
+              <div
+                key={v.id}
+                className="flex h-full min-w-0 w-full"
+              >
+                <div className="h-full min-w-0 w-full">
+                  <VehicleCard v={v} />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+
+          /* ================= EMPTY STATE ================= */
+
+          <div className="mt-5 w-full rounded-2xl border border-orange-100 bg-orange-50/70 px-4 py-12 text-center sm:mt-8 sm:rounded-3xl sm:px-8 sm:py-20">
+
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 sm:h-16 sm:w-16">
+              <Search
+                size={22}
+                className="text-orange-500 sm:h-7 sm:w-7"
+              />
+            </div>
+
+            <h3 className="mt-4 text-base font-black text-slate-950 sm:text-xl">
+              No matching vehicles
+            </h3>
+
+            <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-slate-500 sm:text-sm">
+              Try another category or clear your filters.
+            </p>
+
+            <button
+              type="button"
+              onClick={reset}
+              className="mt-5 rounded-xl bg-orange-500 px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-orange-200 transition-all hover:bg-orange-600 sm:mt-6 sm:rounded-2xl sm:px-5 sm:py-3 sm:text-sm"
+            >
+              Clear filters
+            </button>
+          </div>
+        )}
+      </section>
     </div>
-  ) : (
-
-    /* =====================================================
-        EMPTY STATE
-    ====================================================== */
-    <div className="mt-6 w-full rounded-none border border-orange-100 bg-orange-50/70 px-4 py-14 text-center sm:mt-8 sm:rounded-3xl sm:px-8 sm:py-20">
-
-      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 sm:h-16 sm:w-16">
-        <Search
-          size={20}
-          className="text-orange-500 sm:h-7 sm:w-7"
-        />
-      </div>
-
-      <h3 className="mt-4 text-base font-black text-slate-950 sm:text-xl">
-        No matching vehicles
-      </h3>
-
-      <p className="mx-auto mt-1.5 max-w-md text-[11px] leading-relaxed text-slate-500 sm:mt-2 sm:text-sm">
-        Try another category or clear your filters.
-      </p>
-
-      <button
-        type="button"
-        onClick={reset}
-        className="mt-5 rounded-xl bg-orange-500 px-4 py-2.5 text-xs font-black text-white shadow-lg shadow-orange-200 transition-all hover:bg-orange-600 sm:mt-6 sm:rounded-2xl sm:px-5 sm:py-3 sm:text-sm"
-      >
-        Clear filters
-      </button>
-
-    </div>
-  )}
-    </section>
-
-{/* =====================================================
-    FREQUENTLY ASKED QUESTIONS
-====================================================== */}
-
-    
-    </div>
-    
   );
 }

@@ -187,19 +187,17 @@ export default function Footer() {
 
               <div className="mt-2.5 grid gap-1.5 text-[11px] font-semibold text-slate-600 sm:mt-3 sm:gap-2.5 sm:text-sm">
                 <Link
-                  to="/vehicles?type=bike"
+                  to="/"
                   className="transition hover:translate-x-1 hover:text-orange-600"
                 >
-                  Bike Rentals
+                  Home
                 </Link>
-
                 <Link
-                  to="/vehicles?type=car"
+                  to="/contact"
                   className="transition hover:translate-x-1 hover:text-orange-600"
                 >
-                  Car Rentals
+                  Contact Us
                 </Link>
-
                 <Link
                   to="/vehicles"
                   className="transition hover:translate-x-1 hover:text-orange-600"
@@ -207,19 +205,14 @@ export default function Footer() {
                   All Vehicles
                 </Link>
 
+                
                 <Link
-                  to="/contact"
+                  to="/vehicles?type=bike"
                   className="transition hover:translate-x-1 hover:text-orange-600"
                 >
-                  Contact Us
+                  Bike Rentals
                 </Link>
-
-                <Link
-                  to="/"
-                  className="transition hover:translate-x-1 hover:text-orange-600"
-                >
-                  Home
-                </Link>
+                
               </div>
             </div>
 

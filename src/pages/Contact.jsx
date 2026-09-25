@@ -1,16 +1,20 @@
-
 import { useState } from "react";
 
 import {
   MapPin,
-  Phone,
-  Mail,
-  MessageCircle,
   Clock3,
   HelpCircle,
   ChevronDown,
   ArrowRight,
+  MessageCircle,
 } from "lucide-react";
+
+import { motion } from "framer-motion";
+
+import callImg from "../assets/features/phone.jpg";
+import whatsappImg from "../assets/features/whatsapp.jpg";
+import emailImg from "../assets/features/email.jpg";
+import locationImg from "../assets/features/easy.png";
 
 export default function Contact() {
   const [openFaq, setOpenFaq] = useState(null);
@@ -77,43 +81,39 @@ export default function Contact() {
           {/* CALL */}
           <div className="group rounded-2xl border border-orange-100 bg-gradient-to-br from-orange-50 via-white to-amber-50 p-[1px] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-orange-100 sm:rounded-3xl">
             <Info
-              icon={Phone}
+              image={callImg}
               title="Call us"
               text="+91 98765 43210"
               href="tel:+919876543210"
-              iconColor="bg-orange-100 text-orange-600"
             />
           </div>
 
           {/* WHATSAPP */}
           <div className="group rounded-2xl border border-emerald-100 bg-gradient-to-br from-emerald-50 via-white to-green-50 p-[1px] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-100 sm:rounded-3xl">
             <Info
-              icon={MessageCircle}
+              image={whatsappImg}
               title="WhatsApp"
               text="Chat with our team"
               href="https://wa.me/919876543210"
-              iconColor="bg-emerald-100 text-emerald-600"
             />
           </div>
 
           {/* EMAIL */}
           <div className="group rounded-2xl border border-blue-100 bg-gradient-to-br from-blue-50 via-white to-sky-50 p-[1px] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-100 sm:rounded-3xl">
             <Info
-              icon={Mail}
+              image={emailImg}
               title="Email"
               text="hello@orangedrive.in"
               href="mailto:hello@orangedrive.in"
-              iconColor="bg-blue-100 text-blue-600"
             />
           </div>
 
           {/* LOCATIONS */}
           <div className="group rounded-2xl border border-violet-100 bg-gradient-to-br from-violet-50 via-white to-purple-50 p-[1px] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-violet-100 sm:rounded-3xl">
             <Info
-              icon={MapPin}
+              image={locationImg}
               title="Locations"
               text="Coimbatore & Pollachi"
-              iconColor="bg-violet-100 text-violet-600"
             />
           </div>
         </div>
@@ -332,22 +332,28 @@ export default function Contact() {
    CONTACT INFO CARD
 ================================================== */
 
-function Info({
-  icon: I,
-  title,
-  text,
-  href,
-  iconColor = "bg-orange-100 text-orange-600",
-}) {
+function Info({ image, title, text, href }) {
   const content = (
     <div className="card min-w-0 rounded-[calc(1rem-1px)] bg-white p-3.5 transition-all duration-300 sm:rounded-[calc(1.5rem-1px)] sm:p-5 lg:p-6">
-      {/* ICON */}
-      <div
-        className={`grid h-9 w-9 place-items-center rounded-xl sm:h-11 sm:w-11 sm:rounded-2xl ${iconColor}`}
+      {/* IMAGE */}
+      <motion.div
+        animate={{
+          y: [0, -3, 0],
+          scale: [1, 1.04, 1],
+        }}
+        transition={{
+          duration: 2.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="flex h-10 w-10 items-center justify-center sm:h-14 sm:w-14"
       >
-        <I size={17} className="sm:hidden" />
-        <I size={20} className="hidden sm:block" />
-      </div>
+        <img
+          src={image}
+          alt={title}
+          className="h-full w-full object-contain drop-shadow-[0_6px_10px_rgba(15,23,42,0.15)] transition-transform duration-300 group-hover:scale-110"
+        />
+      </motion.div>
 
       {/* TITLE */}
       <h3 className="mt-3 truncate text-xs font-black text-slate-900 sm:mt-5 sm:text-base">
