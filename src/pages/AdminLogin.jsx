@@ -361,17 +361,7 @@ export default function AdminLogin() {
             </div>
 
             {/* Demo credentials */}
-            <div className="mt-3 rounded-xl border border-orange-100 bg-orange-50 p-3 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-orange-600">
-                Demo access
-              </p>
-
-              <p className="mt-1 text-[11px] text-slate-600">
-                Username: <b>admin</b>
-                <span className="mx-2 text-orange-300">•</span>
-                Password: <b>Admin@123</b>
-              </p>
-            </div>
+            
 
           </form>
         </div>
