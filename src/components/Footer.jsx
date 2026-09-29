@@ -192,12 +192,7 @@ export default function Footer() {
                 >
                   Home
                 </Link>
-                <Link
-                  to="/contact"
-                  className="transition hover:translate-x-1 hover:text-orange-600"
-                >
-                  Contact Us
-                </Link>
+               
                 <Link
                   to="/vehicles"
                   className="transition hover:translate-x-1 hover:text-orange-600"
@@ -211,6 +206,18 @@ export default function Footer() {
                   className="transition hover:translate-x-1 hover:text-orange-600"
                 >
                   Bike Rentals
+                </Link>
+                <Link
+                  to="/vehicles?type=car"
+                  className="transition hover:translate-x-1 hover:text-orange-600"
+                >
+                  Car Rentals
+                </Link>
+                <Link
+                  to="/contact"
+                  className="transition hover:translate-x-1 hover:text-orange-600"
+                >
+                  Contact Us
                 </Link>
                 
               </div>
